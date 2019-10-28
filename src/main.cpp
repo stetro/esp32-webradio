@@ -11,7 +11,7 @@
 
 Configuration configuration;
 ConfigurationData *configuration_data;
-bool configuration_mode_enbled = false;
+bool configuration_mode_enabled = false;
 
 const char *ntp_server = "pool.ntp.org";
 const long gmt_offset_sec = 0;
@@ -28,7 +28,7 @@ void setup() {
         configuration_data->eeprom_check[1] == 'K') ||
       configuration_data->configuration_version != CONFIGURATION_VERSION) {
     configuration.init();
-    configuration_mode_enbled = true;
+    configuration_mode_enabled = true;
     return;
   }
 
@@ -46,7 +46,7 @@ void setup() {
       Serial.println("[WIFI] Run into Wifi Timeout, configuration");
       Serial.flush();
       WiFi.disconnect();
-      configuration_mode_enbled = true;
+      configuration_mode_enabled = true;
       return;
     }
   }
@@ -64,7 +64,8 @@ void setup() {
 }
 
 void loop() {
-  if (configuration_mode_enbled) {
+  if (configuration_mode_enabled) {
+    delay(100);
     return;
   }
   delay(100);
