@@ -3,11 +3,14 @@
 #include <TimeLib.h>
 #include <WiFi.h>
 #include <WiFiUdp.h>
-
-#include <configuration.h>
 #include <time.h>
 
+#include <configuration.h>
+#include <player.h>
+
 #define WIFI_TIMEOUT_CONFIGURATION_S 60
+
+Player player;
 
 Configuration configuration;
 ConfigurationData *configuration_data;
@@ -61,6 +64,10 @@ void setup() {
   }
   setTime(mktime(&timeinfo));
   Serial.printf("[Timer] %02d:%02d:%02d", hour(), minute(), second());
+
+  // Player
+  player.setup();
+  player.play();
 }
 
 void loop() {
@@ -68,5 +75,5 @@ void loop() {
     delay(100);
     return;
   }
-  delay(100);
+  player.loop();
 }

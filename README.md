@@ -14,6 +14,7 @@ TODOs
 - [ ] Received all parts
 - [ ] Connect ESP32 with DAC
 - [ ] Play simple mp3 stream on ESP32 with I2S
+- [ ] Verify if VS1053 is more feasable
 - [ ] Implement rotary encoder input
 - [ ] Attatch Display via I2C
 - [ ] Design and implement simple menu
