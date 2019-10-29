@@ -4,6 +4,7 @@
 #include <WiFi.h>
 #include <WiFiUdp.h>
 #include <time.h>
+#include <Encoder.h>
 
 #include <configuration.h>
 #include <player.h>
