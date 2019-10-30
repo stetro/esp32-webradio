@@ -3,27 +3,49 @@
 #include <TimeLib.h>
 #include <WiFi.h>
 #include <WiFiUdp.h>
+#include <display.h>
 #include <time.h>
 
 #include <configuration.h>
-#include <player.h>
+// #include <player.h>
+#include <ESP32Encoder.h>
 
 #define WIFI_TIMEOUT_CONFIGURATION_S 60
 
-Player player;
+// Player player;
+Display display;
+
+ESP32Encoder encoder;
 
 Configuration configuration;
 ConfigurationData *configuration_data;
 bool configuration_mode_enabled = false;
 
-const char *ntp_server = "pool.ntp.org";
-const long gmt_offset_sec = 0;
+const char *ntp_server = "europe.pool.ntp.org";
+const long gmt_offset_sec = 3600;
 const int daylight_offset_sec = 0;
+
+#define STATION_COUNT 7
+
+const char stations[STATION_COUNT][16] = {"domradio.de", "1Live", "WDR 2", "WDR 3", "WDR 4", "WDR 5", "Deutschlandfunk"};
+int station_index = 0;
+int32_t old_count = 0;
 
 void setup() {
 
   // Setup Serial on 115200 Baud
   Serial.begin(115200);
+
+  // Setup Encoder
+  ESP32Encoder::useInternalWeakPullResistors = false;
+  encoder.clearCount();
+  encoder.attachHalfQuad(27, 26);
+
+  // Setup Display
+  display.setup();
+  display.clear();
+  display.status("Connecting Wifi...");
+  display.display();
 
   // Load configuration and check validity
   configuration_data = configuration.get_configuration();
@@ -32,6 +54,9 @@ void setup() {
       configuration_data->configuration_version != CONFIGURATION_VERSION) {
     configuration.init();
     configuration_mode_enabled = true;
+    display.clear();
+    display.configuration();
+    display.display();
     return;
   }
 
@@ -62,12 +87,19 @@ void setup() {
     Serial.println("[Timer] Failed to obtain time");
     delay(300);
   }
-  setTime(mktime(&timeinfo));
-  Serial.printf("[Timer] %02d:%02d:%02d", hour(), minute(), second());
+  Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
 
   // Player
-  player.setup();
-  player.play();
+  // player.setup();
+  // player.play();
+}
+
+void render() {
+  display.clear();
+  display.show_time();
+  display.station(stations[station_index]);
+  display.status("Buffering ...");
+  display.display();
 }
 
 void loop() {
@@ -75,5 +107,18 @@ void loop() {
     delay(100);
     return;
   }
-  player.loop();
+  if (old_count != encoder.getCount()) {
+    if (old_count > encoder.getCount()) {
+      station_index = (station_index + 1) % STATION_COUNT;
+    } else {
+      station_index = (station_index - 1) % STATION_COUNT;
+      if (station_index < 0) {
+        station_index = STATION_COUNT-1;
+      }
+    }
+    old_count = encoder.getCount();
+    Serial.printf("Encoder %d %d \n", encoder.getCount(), station_index);
+  }
+  render();
+  delay(200);
 }
