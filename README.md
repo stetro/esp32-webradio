@@ -11,13 +11,14 @@ This is a simple ESP32 webradio implementation based on the Arduino framework bu
 TODOs
 -----
 
-- [ ] Received all parts
-- [ ] Connect ESP32 with DAC
-- [ ] Play simple mp3 stream on ESP32 with I2S
+- [x] Received all parts
+- [x] Connect ESP32 with DAC
+- [x] Play simple mp3 stream on ESP32 with I2S
 - [ ] Verify if VS1053 is more feasable
 - [x] Implement rotary encoder input
 - [x] Attatch Display via I2C
-- [ ] Design and implement simple menu
+- [x] Design and implement simple menu
+- [x] Solder custom PCB design
 - [ ] Attatch Potentiometer with switch
 - [ ] Build Hardware into Vintage enclosure
 

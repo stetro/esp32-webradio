@@ -6,21 +6,32 @@
 #include "AudioGeneratorMP3.h"
 #include "AudioOutputI2S.h"
 
-#define STREAM_URL                                                             \
-  "https://wdr-dg-wdr-https-fra-dtag-cdn.sslcast.addradio.de/wdr/1live/live/"  \
-  "mp3/128/stream.mp3"
+#define STATION_COUNT 7
+#define NAME_INDEX 0
+#define URL_INDEX 1
+
+const char stations[STATION_COUNT][2][100] = {
+    {"domradio.de", "http://dom.audiostream.io/domradio/1000/mp3/64/domradio"},
+    {"1Live", "http://wdr-edge-2018.fra-lg.cdn.addradio.net/wdr/1live/live/mp3/56/stream.mp3"},
+    {"WDR 2", "http://wdr-edge-201a.fra-lg.cdn.addradio.net/wdr/wdr2/suedwestfalen/mp3/56/stream.mp3"},
+    {"WDR 3", "http://wdr-edge-201a.fra-lg.cdn.addradio.net/wdr/wdr3/live/mp3/56/stream.mp3"},
+    {"WDR 4", "http://wdr-edge-201a.fra-lg.cdn.addradio.net/wdr/wdr4/live/mp3/56/stream.mp3"},
+    {"WDR 5", "http://wdr-edge-201a.fra-lg.cdn.addradio.net/wdr/wdr5/live/mp3/56/stream.mp3"},
+    {"Deutschlandfunk", "http://dradio-edge-2095.fra-lg.cdn.addradio.net/dradio/dlf/live/mp3/64/stream.mp3"}};
 
 class Player {
-public:
-  void setup();
+ public:
+  void init();
+  void setup(int station);
   void loop();
   void play();
+  void stop();
 
-private:
+ private:
   AudioGeneratorMP3 *mp3;
   AudioFileSourceICYStream *file;
   AudioFileSourceBuffer *buff;
   AudioOutputI2S *out;
 };
 
-#endif // PLAYER_H
+#endif  // PLAYER_H
