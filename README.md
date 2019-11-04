@@ -39,4 +39,4 @@ This parts are used for my personal web radio project setup into a vintage enclo
 
 Setup
 -----
-(Prototype 1)[img/proto.jpg]
+[Prototype 1](img/proto.jpg)
