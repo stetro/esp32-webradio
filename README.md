@@ -37,3 +37,6 @@ This parts are used for my personal web radio project setup into a vintage enclo
 | Potentiomenter   |  3,00€ |
 | Rotary Encoder   |  3,00€ |
 
+Setup
+-----
+(Prototype 1)[img/proto.jpg]
