@@ -26,12 +26,18 @@ class Player {
   void loop();
   void play();
   void stop();
+  void free_memory();
 
  private:
   AudioGeneratorMP3 *mp3;
   AudioFileSourceICYStream *file;
   AudioFileSourceBuffer *buff;
   AudioOutputI2S *out;
+
+  const int preallocate_buffer_size = 16 * 1024;
+  const int preallocate_codec_size = 85332;
+  void *preallocate_buffer = NULL;
+  void *preallocate_codec = NULL;
 };
 
 #endif  // PLAYER_H

@@ -8,7 +8,7 @@ void Radio::init_decoder() {
 
 void Radio::init_player() {
   player.init();
-  player.setup(0);
+  player.setup(station_index);
   player.play();
 }
 
