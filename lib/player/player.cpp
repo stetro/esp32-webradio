@@ -16,6 +16,25 @@ void Player::setup(int station) {
   file = new AudioFileSourceICYStream(stations[station][URL_INDEX]);
   buff = new AudioFileSourceBuffer(file, preallocate_buffer, preallocate_buffer_size);
   mp3 = new AudioGeneratorMP3(preallocate_codec, preallocate_codec_size);
+  mp3->RegisterStatusCB(on_status_update, (void *)this);
+  playing_index = station;
+}
+
+void Player::on_status_update(void *context, int code, const char *string) {
+  Serial.printf("[Player] code %d status %s\n", code, string);
+  Player *player = reinterpret_cast<Player *>(context);
+  // rebuffer stream in case syncronization was lost
+  if (code == LOST_SYNCRONSIATION_STATUS) {
+    player->restart_station = true;
+  }
+}
+
+void Player::restart() {
+  Serial.printf("[Player] Restart\n");
+  stop();
+  setup(playing_index);
+  play();
+  restart_station = false;
 }
 
 void Player::play() {
@@ -38,6 +57,10 @@ void Player::loop() {
     }
   } else {
     Serial.printf("[Player] MP3 done\n");
+  }
+
+  if (restart_station) {
+    this->restart();
   }
 }
 

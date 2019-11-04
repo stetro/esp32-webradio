@@ -9,6 +9,7 @@
 #define STATION_COUNT 7
 #define NAME_INDEX 0
 #define URL_INDEX 1
+#define LOST_SYNCRONSIATION_STATUS 257
 
 const char stations[STATION_COUNT][2][100] = {
     {"domradio.de", "http://dom.audiostream.io/domradio/1000/mp3/64/domradio"},
@@ -26,7 +27,9 @@ class Player {
   void loop();
   void play();
   void stop();
+  void restart();
   void free_memory();
+  static void on_status_update(void *context, int code, const char *string);
 
  private:
   AudioGeneratorMP3 *mp3;
@@ -38,6 +41,8 @@ class Player {
   const int preallocate_codec_size = 85332;
   void *preallocate_buffer = NULL;
   void *preallocate_codec = NULL;
+  int playing_index = 0;
+  bool restart_station = false;
 };
 
 #endif  // PLAYER_H
