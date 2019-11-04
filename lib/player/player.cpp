@@ -18,29 +18,33 @@ void Player::setup(int station) {
   mp3 = new AudioGeneratorMP3(preallocate_codec, preallocate_codec_size);
 }
 
-void Player::play() { mp3->begin(buff, out); }
+void Player::play() {
+  Serial.printf("[Player] Play\n");
+  mp3->begin(buff, out);
+}
 
 void Player::loop() {
-  static int lastms = 0;
+  static int last_free_memory = 0;
 
   if (mp3->isRunning()) {
-    if (millis() - lastms > 1000) {
-      lastms = millis();
-      Serial.printf("Running for %d ms...\n", lastms);
+    if (millis() - last_free_memory > 5000) {
+      last_free_memory = millis();
+      free_memory();
+      Serial.printf("[Player] Running for %d ms...\n", last_free_memory);
       Serial.flush();
     }
     if (!mp3->loop()) {
-      mp3->stop();
+      this->stop();
     }
   } else {
-    Serial.printf("MP3 done\n");
-    delay(1000);
+    Serial.printf("[Player] MP3 done\n");
   }
 }
 
-void Player::free_memory() { Serial.printf_P(PSTR("[Player] Before stop...Free mem=%d\n"), ESP.getFreeHeap()); }
+void Player::free_memory() { Serial.printf_P(PSTR("[Player] Free memory = %d bytes\n"), ESP.getFreeHeap()); }
 
 void Player::stop() {
+  Serial.printf("[Player] Stop\n");
   if (mp3) {
     mp3->stop();
     delete mp3;

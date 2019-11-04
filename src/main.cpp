@@ -68,7 +68,7 @@ void setup() {
     Serial.println("[Timer] Failed to obtain time");
     delay(300);
   }
-  Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
+  Serial.println(&timeinfo, "[Timer] %A, %B %d %Y %H:%M:%S");
 
   // Player
   radio.init_player();

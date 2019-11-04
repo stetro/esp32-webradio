@@ -44,7 +44,7 @@ void Radio::handle_encoder_input() {
     }
     station_change_millis = millis();
     last_encoder_count = encoder.getCount();
-    Serial.printf("Encoder %d %d \n", encoder.getCount(), station_index);
+    Serial.printf("[Radio] Encoder %d %d \n", encoder.getCount(), station_index);
   }
 }
 
