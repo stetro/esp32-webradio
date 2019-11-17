@@ -1,6 +1,6 @@
 #include <radio.h>
 
-void Radio::init_decoder() {
+void Radio::init_encoder() {
   ESP32Encoder::useInternalWeakPullResistors = false;
   encoder.clearCount();
   encoder.attachHalfQuad(34, 35);
@@ -8,8 +8,7 @@ void Radio::init_decoder() {
 
 void Radio::init_player() {
   player.init();
-  player.setup(station_index);
-  player.play();
+  player.play(station_index);
 }
 
 void Radio::display_connecting() {
@@ -27,7 +26,7 @@ void Radio::display_configuration() {
 void Radio::display_station(const char* status) {
   display.clear();
   display.show_time();
-  display.station(stations[station_index][NAME_INDEX]);
+  display.station(stations[station_index].name);
   display.status(status);
   display.display();
 }
@@ -63,7 +62,6 @@ void Radio::loop() {
     playing_station_index = station_index;
     display_station("Buffering ...");
     player.stop();
-    player.setup(station_index);
-    player.play();
+    player.play(station_index);
   }
 }

@@ -8,7 +8,7 @@
 class Radio {
  public:
   void init_display() { display.setup(); }
-  void init_decoder();
+  void init_encoder();
   void init_player();
   void display_connecting();
   void display_configuration();
@@ -22,7 +22,7 @@ class Radio {
   Display display;
   ESP32Encoder encoder;
 
-  int station_index = 0;
+  int station_index = 1;
   int station_change_millis = 0;
   int playing_station_index = 0;
   long last_rendering_millis = 0;
