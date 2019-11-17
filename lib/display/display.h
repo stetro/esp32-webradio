@@ -5,8 +5,8 @@
 #include <Wire.h>
 #include <Time.h>
 
-#define PIN_WIRE_SDA 17                                                                                                                                                                                          
-#define PIN_WIRE_SCL 16 
+#define PIN_WIRE_SDA 22                                                                                                                                                                                          
+#define PIN_WIRE_SCL 21 
 #define DISPLAY_ADDRESS 0x3C
 
 class Display {

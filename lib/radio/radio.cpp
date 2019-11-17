@@ -8,8 +8,7 @@ void Radio::init_encoder() {
 
 void Radio::init_player() {
   player.init();
-  player.setup(station_index);
-  player.play();
+  player.play(station_index);
 }
 
 void Radio::display_connecting() {
@@ -63,7 +62,6 @@ void Radio::loop() {
     playing_station_index = station_index;
     display_station("Buffering ...");
     player.stop();
-    player.setup(station_index);
-    player.play();
+    player.play(station_index);
   }
 }

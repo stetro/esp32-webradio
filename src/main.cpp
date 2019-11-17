@@ -26,7 +26,7 @@ void setup() {
   // Setup Serial on 115200 Baud
   Serial.begin(115200);
 
-  radio.init_decoder();
+  radio.init_encoder();
   radio.init_display();
   radio.display_connecting();
 
