@@ -1,6 +1,6 @@
 #include <radio.h>
 
-void Radio::init_decoder() {
+void Radio::init_encoder() {
   ESP32Encoder::useInternalWeakPullResistors = false;
   encoder.clearCount();
   encoder.attachHalfQuad(34, 35);

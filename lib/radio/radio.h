@@ -8,7 +8,7 @@
 class Radio {
  public:
   void init_display() { display.setup(); }
-  void init_decoder();
+  void init_encoder();
   void init_player();
   void display_connecting();
   void display_configuration();
