@@ -22,11 +22,10 @@ class Radio {
   Display display;
   ESP32Encoder encoder;
 
-  int station_index = 0;
+  int station_index = 1;
   int station_change_millis = 0;
   int playing_station_index = 0;
   long last_rendering_millis = 0;
-  int last_encoder_count = 0;
 };
 
 #endif  // RADIO_H

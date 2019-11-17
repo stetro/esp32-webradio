@@ -26,7 +26,7 @@ void Radio::display_configuration() {
 void Radio::display_station(const char* status) {
   display.clear();
   display.show_time();
-  display.station(stations[station_index][NAME_INDEX]);
+  display.station(stations[station_index].name);
   display.status(status);
   display.display();
 }
