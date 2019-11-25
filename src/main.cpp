@@ -5,7 +5,7 @@
 #include <WiFiUdp.h>
 #include <configuration.h>
 #include <radio.h>
-#include <time.h>
+#include <NtpClientLib.h>
 
 #define WIFI_TIMEOUT_CONFIGURATION_S 60
 
@@ -62,13 +62,8 @@ void setup() {
   Serial.println("\n[WIFI] Connected");
 
   // Load remote NTP time
-  configTime(gmt_offset_sec, daylight_offset_sec, ntp_server);
-  struct tm timeinfo;
-  while (!getLocalTime(&timeinfo)) {
-    Serial.println("[Timer] Failed to obtain time");
-    delay(300);
-  }
-  Serial.println(&timeinfo, "[Timer] %A, %B %d %Y %H:%M:%S");
+  NTP.begin(ntp_server, 1, true, 0);
+  Serial.printf("[Timer] %s\n", NTP.getTimeDateString().c_str());
 
   // Player
   radio.init_player();
