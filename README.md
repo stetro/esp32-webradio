@@ -6,7 +6,6 @@ ESP32 Webradio
 
 This is a simple ESP32 webradio implementation based on the Arduino framework build with PlatformIO.
 
-> Work in Progress!
 
 TODOs
 -----
@@ -19,8 +18,8 @@ TODOs
 - [x] Attatch Display via I2C
 - [x] Design and implement simple menu
 - [x] Solder custom PCB design
-- [ ] Attatch Potentiometer with switch
-- [ ] Build Hardware into Vintage enclosure
+- [x] Attatch Potentiometer with switch
+- [x] Build Hardware into Vintage enclosure
 
 
 Partlist
@@ -40,4 +39,6 @@ This parts are used for my personal web radio project setup into a vintage enclo
 
 Setup
 -----
+![Wiring](img/wiring.png)
 ![Prototype 1](img/proto.jpg)
+![End Product](img/final.jpg)
