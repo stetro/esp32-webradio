@@ -55,6 +55,7 @@ void setup() {
       Serial.flush();
       WiFi.disconnect();
       radio.display_configuration();
+      configuration.init();
       configuration_mode_enabled = true;
       return;
     }
